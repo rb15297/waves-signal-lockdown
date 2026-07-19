@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unlock Room 1</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<main class="wrap">
+  
+<div class="room-banner" style="background:#7209B7">
+  <div class="badge">Room 1</div>
+  <h2>🔊 Sound Wave Bay</h2>
+  <p class="muted" style="color:rgba(255,255,255,0.85);margin:0.35rem 0 0">4-PS4-1 Waves &amp; Their Applications</p>
+  <div class="progress" data-progress data-room="1"
+       data-challenge-ids='["1A", "1B", "1C", "1D"]' data-current=""><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+  <div class="card lock-panel" data-unlock
+       data-room="1"
+       data-unlock-hash="7db5d040ab8c0596e188bb61ab7828467cec2114deff0e9797ed8dbfa4fe200f"
+       data-challenge-ids='["1A", "1B", "1C", "1D"]'
+       data-room-code="7845"
+       data-next-href="../room2/index.html">
+    <div class="lock-icon" aria-hidden="true">🔒</div>
+    <h2>Room 1 unlock</h2>
+    <p>You finished every challenge in this room. Tap Unlock to check your answers. Success reveals the room code and opens the next room.</p>
+    <p class="msg" aria-live="polite"></p>
+    <div class="room-code" aria-label="Room code"></div>
+    <figure class="celebrate-scene" hidden data-celebrate><img src="../assets/celebration.png" alt="" width="1024" height="1024" loading="lazy"></figure>
+    <button type="button" class="btn accent" data-unlock-btn>Unlock</button>
+    <div class="continue-wrap"></div>
+  </div>
+  <div class="nav"><a class="btn" href="challenge-1D.html">Back</a><span></span></div>
+</main>
+
+<script src="../assets/room.js"></script>
+</body>
+</html>
