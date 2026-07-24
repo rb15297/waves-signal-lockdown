@@ -99,6 +99,18 @@ a { color: var(--primary); }
   margin-right: auto;
 }
 .final-scene img { max-height: 200px; }
+/* Force a square playback box — some Grok exports ship a bad tkhd matrix */
+.celebrate-scene video, .final-scene video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: center;
+  background: #0f172a;
+}
 [data-final-win] {
   text-align: center;
   overflow: hidden;

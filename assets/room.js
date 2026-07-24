@@ -84,8 +84,26 @@
 
     function showCelebrate(on) {
       if (!celebrate) return;
-      if (on) celebrate.removeAttribute("hidden");
-      else celebrate.setAttribute("hidden", "");
+      const vid = celebrate.querySelector("video");
+      if (on) {
+        celebrate.removeAttribute("hidden");
+        if (vid) {
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (reduce) {
+            vid.pause();
+            vid.currentTime = 0;
+          } else {
+            vid.currentTime = 0;
+            vid.play().catch(() => {});
+          }
+        }
+      } else {
+        celebrate.setAttribute("hidden", "");
+        if (vid) {
+          vid.pause();
+          vid.currentTime = 0;
+        }
+      }
     }
 
     function applySuccess() {
@@ -140,6 +158,14 @@
       if (gate) gate.hidden = true;
       if (win) win.hidden = false;
       burstConfetti();
+      const vid = win && win.querySelector("video");
+      if (vid) {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!reduce) {
+          vid.currentTime = 0;
+          vid.play().catch(() => {});
+        }
+      }
     } else if (gate) {
       gate.hidden = false;
       if (win) win.hidden = true;
