@@ -1,3 +1,5 @@
-# Waves Signal Lockdown — student site
+# Waves Signal Lockdown — Student Site
 
-Self-paced classroom student site. Teacher guides not included.
+Self-paced digital escape room for students. Hosted on GitHub Pages.
+
+Teacher guides, answer keys, and printable PDFs are **not** included here.
