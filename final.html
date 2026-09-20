@@ -6,25 +6,25 @@
   <title>Final unlock</title>
   <link rel="stylesheet" href="./assets/styles.css">
 </head>
-<body>
+<body class="scene-overlay">
+<div class="final-beat" data-final data-rooms='[1, 2, 3, 4]'>
+<div class="scene-bg" style="background-image:url('assets/unlock-locked-room4.png')" data-locked-src="assets/unlock-locked-room4.png"><figure class="final-scene" hidden data-final-media><video src="assets/final.mp4" poster="assets/final.png" muted playsinline preload="auto" aria-label="Escape celebration"></video></figure></div>
+<aside class="scene-pane">
 
-<main class="wrap final-beat" data-final data-rooms='[1, 2, 3, 4]'>
-  <header class="hero">
-    <h1>You escaped!</h1>
-    <p>4th Grade NGSS Waves &amp; Information Transfer Escape Room</p>
-  </header>
-  <div class="card" data-final-gate>
+  <h1>You escaped!</h1>
+  <p>4th Grade NGSS Waves &amp; Information Transfer Escape Room</p>
+  <div data-final-gate>
     <p>Finish unlocking every room first, then return here.</p>
     <a class="btn" href="room1/index.html">Back to Room 1</a>
   </div>
-  <div class="card" data-final-win hidden>
-    <figure class="final-scene"><video src="assets/final.mp4" poster="assets/final.png" muted playsinline loop autoplay preload="auto" aria-label="Escape celebration"></video></figure>
+  <div data-final-win hidden>
     <h2>Master unlock</h2>
     <p class="room-code" style="opacity:1">7845-4607-8925-9306</p>
     <p class="muted">Great teamwork — your class cracked the lockdown.</p>
   </div>
-</main>
 
+</aside>
+</div>
 <script src="./assets/room.js"></script>
 </body>
 </html>

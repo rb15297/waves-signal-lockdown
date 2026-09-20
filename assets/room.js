@@ -47,6 +47,22 @@
     });
   }
 
+  function applyTry(letter) {
+    const layer = document.querySelector("[data-tries]");
+    const lineEl = document.querySelector("[data-try-line]");
+    if (!layer || !lineEl) return;
+    let tries = [];
+    try { tries = JSON.parse(layer.getAttribute("data-tries") || "[]"); } catch (e) { return; }
+    const idx = "ABCD".indexOf(letter);
+    if (idx >= 0 && tries[idx] && tries[idx].line) {
+      lineEl.textContent = tries[idx].line;
+      lineEl.removeAttribute("hidden");
+    } else {
+      lineEl.textContent = "";
+      lineEl.setAttribute("hidden", "");
+    }
+  }
+
   function initChoices() {
     const box = document.querySelector("[data-choices]");
     if (!box) return;
@@ -57,12 +73,14 @@
     const saved = sessionStorage.getItem(key);
     if (saved) {
       buttons.forEach((b) => b.classList.toggle("selected", b.dataset.letter === saved));
+      applyTry(saved);
     }
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         buttons.forEach((b) => b.classList.remove("selected"));
         btn.classList.add("selected");
         sessionStorage.setItem(key, btn.dataset.letter);
+        applyTry(btn.dataset.letter);
         paintProgress(document.querySelector("[data-progress]"));
       });
     });
@@ -80,28 +98,46 @@
     const codeEl = panel.querySelector(".room-code");
     const btn = panel.querySelector("[data-unlock-btn]");
     const continueWrap = panel.querySelector(".continue-wrap");
-    const celebrate = panel.querySelector("[data-celebrate]");
+    const celebrate = document.querySelector("[data-celebrate]");
+    const sceneBg = document.querySelector(".scene-bg");
 
     function showCelebrate(on) {
-      if (!celebrate) return;
-      const vid = celebrate.querySelector("video");
+      const vid = celebrate && celebrate.querySelector("video");
+      const img = celebrate && celebrate.querySelector("img");
       if (on) {
-        celebrate.removeAttribute("hidden");
-        if (vid) {
+        if (vid && celebrate) {
+          const poster = vid.getAttribute("poster");
+          if (sceneBg && poster) {
+            sceneBg.style.backgroundImage = `url("${poster}")`;
+          }
           const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           if (reduce) {
+            celebrate.setAttribute("hidden", "");
             vid.pause();
             vid.currentTime = 0;
           } else {
+            celebrate.removeAttribute("hidden");
             vid.currentTime = 0;
-            vid.play().catch(() => {});
+            vid.play().catch(() => {
+              celebrate.setAttribute("hidden", "");
+            });
           }
+        } else if (sceneBg && img) {
+          sceneBg.style.backgroundImage = `url("${img.getAttribute("src")}")`;
+          if (celebrate) celebrate.setAttribute("hidden", "");
+        } else if (celebrate) {
+          celebrate.removeAttribute("hidden");
         }
       } else {
-        celebrate.setAttribute("hidden", "");
-        if (vid) {
-          vid.pause();
-          vid.currentTime = 0;
+        if (sceneBg && sceneBg.dataset.lockedSrc) {
+          sceneBg.style.backgroundImage = `url("${sceneBg.dataset.lockedSrc}")`;
+        }
+        if (celebrate) {
+          celebrate.setAttribute("hidden", "");
+          if (vid) {
+            vid.pause();
+            vid.currentTime = 0;
+          }
         }
       }
     }
@@ -158,13 +194,38 @@
       if (gate) gate.hidden = true;
       if (win) win.hidden = false;
       burstConfetti();
-      const vid = win && win.querySelector("video");
-      if (vid) {
+      const media = root.querySelector("[data-final-media]");
+      const sceneBg = root.querySelector(".scene-bg");
+      const vid = media && media.querySelector("video");
+      const img = media && media.querySelector("img");
+      if (vid && media) {
+        const poster = vid.getAttribute("poster");
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (!reduce) {
+        if (reduce) {
+          if (sceneBg && poster) {
+            sceneBg.style.backgroundImage = `url("${poster}")`;
+          }
+          media.setAttribute("hidden", "");
+          vid.pause();
           vid.currentTime = 0;
-          vid.play().catch(() => {});
+        } else {
+          if (sceneBg) {
+            sceneBg.style.backgroundImage = "none";
+          }
+          media.removeAttribute("hidden");
+          vid.currentTime = 0;
+          vid.play().catch(() => {
+            if (sceneBg && poster) {
+              sceneBg.style.backgroundImage = `url("${poster}")`;
+            }
+            media.setAttribute("hidden", "");
+          });
         }
+      } else if (sceneBg && img) {
+        sceneBg.style.backgroundImage = `url("${img.getAttribute("src")}")`;
+        if (media) media.setAttribute("hidden", "");
+      } else if (media) {
+        media.removeAttribute("hidden");
       }
     } else if (gate) {
       gate.hidden = false;

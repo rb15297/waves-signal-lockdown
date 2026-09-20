@@ -6,9 +6,11 @@
   <title>Unlock Room 2</title>
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
-<body>
+<body class="scene-overlay">
 
-<main class="wrap">
+<div class="scene-bg" style="background-image:url('../assets/unlock-locked-room2.png')" data-locked-src="../assets/unlock-locked-room2.png"><figure class="celebrate-scene" hidden data-celebrate><img src="../assets/unlock-room2.png" alt="" width="1024" height="1024" loading="lazy"></figure></div>
+<aside class="scene-pane">
+
   
 <div class="room-banner" style="background:#F4A300">
   <div class="badge">Room 2</div>
@@ -18,7 +20,7 @@
        data-challenge-ids='["2A", "2B", "2C", "2D"]' data-current=""><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
 </div>
 
-  <div class="card lock-panel" data-unlock
+  <div class="lock-panel" data-unlock
        data-room="2"
        data-unlock-hash="5b345178d8e64f4c5abc6b35dc3cedf66874c6bf280cbcebc6436f178cb0e100"
        data-challenge-ids='["2A", "2B", "2C", "2D"]'
@@ -29,12 +31,12 @@
     <p>You finished every challenge in this room. Tap Unlock to check your answers. Success reveals the room code and opens the next room.</p>
     <p class="msg" aria-live="polite"></p>
     <div class="room-code" aria-label="Room code"></div>
-    <figure class="celebrate-scene" hidden data-celebrate><video src="../assets/celebration.mp4" poster="../assets/celebration.png" muted playsinline loop autoplay preload="auto" aria-label="Room unlocked celebration"></video></figure>
     <button type="button" class="btn accent" data-unlock-btn>Unlock</button>
     <div class="continue-wrap"></div>
   </div>
   <div class="nav"><a class="btn" href="challenge-2D.html">Back</a><span></span></div>
-</main>
+
+</aside>
 
 <script src="../assets/room.js"></script>
 </body>
